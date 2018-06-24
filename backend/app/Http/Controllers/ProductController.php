@@ -13,6 +13,12 @@ class ProductController extends Controller
     	return response()->json($products);
     }
 
+    public function find(Request $request)
+    {
+        $product = Product::findById($request->id);
+        return response()->json($product);
+    }
+
     public function create(Request $request)
     {
     	Product::create($request->All());

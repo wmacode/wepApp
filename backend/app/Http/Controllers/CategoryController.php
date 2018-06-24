@@ -13,6 +13,12 @@ class CategoryController extends Controller
     	return response()->json($categories);
     }
 
+    public function find(Request $request)
+    {
+        $category = Category::find($request->id);
+        return response()->json($category);
+    }
+
     public function create(Request $request)
     {
     	Category::insert($request->All());

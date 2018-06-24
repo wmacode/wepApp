@@ -18,11 +18,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('category', 'CategoryController@findAll');
+Route::get('category/{id}', 'CategoryController@find');
 Route::post('category', 'CategoryController@create');
 Route::put('category', 'CategoryController@update');
 Route::delete('category/{category_id}', 'CategoryController@delete');
 
 Route::get('product', 'ProductController@findAll');
+Route::get('product/{id}', 'ProductController@find');
 Route::post('product', 'ProductController@create');
 Route::put('product', 'ProductController@update');
 Route::delete('product/{id}', 'ProductController@delete');
