@@ -17,14 +17,27 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('category', 'CategoryController@findAll');
-Route::get('category/{id}', 'CategoryController@find');
-Route::post('category', 'CategoryController@create');
-Route::put('category', 'CategoryController@update');
-Route::delete('category/{category_id}', 'CategoryController@delete');
+Route::prefix('auth')->group(function () {
+    Route::post('login', 'AuthController@login');
+    Route::middleware('auth:api')->group(function(){
+        Route::post('logout',  'AuthController@logout');
+        Route::post('refresh', 'AuthController@refresh');
+        Route::post('me',      'AuthController@me');
+    });
+});
 
-Route::get('product', 'ProductController@findAll');
-Route::get('product/{id}', 'ProductController@find');
-Route::post('product', 'ProductController@create');
-Route::put('product', 'ProductController@update');
-Route::delete('product/{id}', 'ProductController@delete');
+Route::middleware('auth:api')->group(function () {
+	Route::get('product', 'ProductController@findAll');
+	Route::get('product/{id}', 'ProductController@find');
+	Route::post('product', 'ProductController@create');
+	Route::put('product', 'ProductController@update');
+	Route::delete('product/{id}', 'ProductController@delete');
+
+	Route::get('category', 'CategoryController@findAll');
+	Route::get('category/{id}', 'CategoryController@find');
+	Route::post('category', 'CategoryController@create');
+	Route::put('category', 'CategoryController@update');
+	Route::delete('category/{category_id}', 'CategoryController@delete');
+});
+
+
